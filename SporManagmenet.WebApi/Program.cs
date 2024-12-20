@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using SporManagmenet.WebApi.Repository.Abstracts;
+using SporManagmenet.WebApi.Repository.Concretes;
 using SporManagmenet.WebApi.Repository.Contexts;
+using SporManagmenet.WebApi.Services.Abstracts;
+using SporManagmenet.WebApi.Services.Concretes;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,10 +12,23 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+
+// Repository Baðýmlýlýklarý
+builder.Services.AddScoped<ICoachRepository, CoachRepository>();
+builder.Services.AddScoped<ICountryRepository,CountryRepository>();
+builder.Services.AddScoped<IPlayerImageRepository, PlayerImageRepository>();
+builder.Services.AddScoped<IPlayerRepository,PlayerRepository>();
+builder.Services.AddScoped<ITeamRepository,TeamRepository>();
 builder.Services.AddDbContext<BaseDbContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlCon"));
 });
+
+
+
+// Service baðýmlýlýklarý
+builder.Services.AddScoped<ITeamService,TeamService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
