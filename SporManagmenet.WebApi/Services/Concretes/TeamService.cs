@@ -8,8 +8,6 @@ namespace SporManagmenet.WebApi.Services.Concretes;
 
 public class TeamService(ITeamRepository _teamRepository) : ITeamService
 {
-
-
     public ReturnModel<NoData> Add(TeamAddRequestDto addRequestDto)
     {
         Team team = addRequestDto;
@@ -48,7 +46,7 @@ public class TeamService(ITeamRepository _teamRepository) : ITeamService
             return new ReturnModel<TeamResponseDto> { Message = $"Takım bulunamadı Id:{id}", Success = false };
         }
 
-        var team = _teamRepository.Get(x => x.Id == id,enableTracking:false,include:false);
+        var team = _teamRepository.Get(predicate:x => x.Id == id,enableTracking:true,include:false);
 
         TeamResponseDto responseDto = team!;
 

@@ -29,6 +29,12 @@ builder.Services.AddDbContext<BaseDbContext>(opt =>
 
 // Service baðýmlýlýklarý
 builder.Services.AddScoped<ITeamService,TeamService>();
+builder.Services.AddScoped<IPlayerService, PlayerService>();
+builder.Services.AddScoped<IPlayerImageService,PlayerImageService>();
+builder.Services.AddScoped<ICountryService,CountryService>();
+builder.Services.AddScoped<ICoachService,CoachService>();
+
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

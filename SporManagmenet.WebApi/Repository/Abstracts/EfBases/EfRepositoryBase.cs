@@ -56,7 +56,7 @@ public abstract class EfRepositoryBase<TEntity, TId, TContext> : IRepository<TEn
             query = query.IgnoreAutoIncludes();
         }
 
-        return query.FirstOrDefault();
+        return query.FirstOrDefault(predicate);
 
     }
 

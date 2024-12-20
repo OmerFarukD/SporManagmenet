@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SporManagmenet.WebApi.Models.Entities;
+using System.Reflection;
 
 namespace SporManagmenet.WebApi.Repository.Contexts;
 
@@ -11,6 +13,10 @@ public class BaseDbContext : DbContext
         
     }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+    }
 
 
     public DbSet<Coach> Coaches{ get; set; }
