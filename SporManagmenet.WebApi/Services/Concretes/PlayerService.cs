@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SporManagmenet.WebApi.Models.Dtos.Players;
 using SporManagmenet.WebApi.Models.Entities;
 using SporManagmenet.WebApi.Repository.Abstracts;
@@ -39,6 +40,36 @@ public sealed class PlayerService(IPlayerRepository _playerRepository, IMapper _
         var response = _mapper.Map<List<PlayerResponseDto>>(players);
 
         return new ReturnModel<List<PlayerResponseDto>> { Data = response, Success = true };
+    }
+
+    public ReturnModel<PlayerDetailResponseDto> GetPlayerDetailById(Guid id)
+    {
+        var player = _playerRepository.Query()
+            .AsNoTracking()
+            .Include(x => x.Country)
+            .Include(x => x.Team)
+            .Include(x => x.PlayerImages)
+            .SingleOrDefault(x=>x.Id==id);
+
+
+        var response = _mapper.Map<PlayerDetailResponseDto>(player);
+
+        return new ReturnModel<PlayerDetailResponseDto> { Data=response, Success=true};
+    }
+
+    public ReturnModel<List<PlayerDetailResponseDto>> GetAllPlayerDetails()
+    {
+        var players = _playerRepository.Query()
+            .AsNoTracking()
+            .Include(x => x.Country)
+            .Include(x => x.Team)
+            .Include(x => x.PlayerImages)
+            .ToList();
+
+
+        var response = _mapper.Map<List<PlayerDetailResponseDto>>(players);
+
+        return new ReturnModel<List<PlayerDetailResponseDto>> { Data = response, Success = true };
     }
 
     public ReturnModel<PlayerResponseDto> GetById(Guid id)

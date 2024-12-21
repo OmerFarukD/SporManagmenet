@@ -2,9 +2,8 @@
 
 namespace SporManagmenet.WebApi.Models.Dtos.Players;
 
-public sealed record PlayerResponseDto
+public class PlayerDetailResponseDto
 {
-
     public Guid Id { get; set; }
 
     public string Name { get; init; }
@@ -14,14 +13,16 @@ public sealed record PlayerResponseDto
     public int Age { get; init; }
 
     public int JerseyNumber { get; init; }
-    public string Branch { get; init; }
+    public Branch Branch { get; init; }
 
-    public string Gender { get; init; }
+    public Gender Gender { get; init; }
 
     public decimal Salary { get; init; }
 
 
     public string TeamName { get; init; }
 
-    public string CountryName{ get; init; }
+    public string CountryName { get; init; }
+
+    public List<string> Images { get; init; }
 }

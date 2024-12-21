@@ -26,5 +26,12 @@ namespace SporManagmenet.WebApi.Controllers
 
         [HttpGet("getall")]
         public IActionResult GetAll() => Ok(playerService.GetAll());
+
+
+        [HttpGet("detail")]
+        public IActionResult GetDetailById([FromQuery] Guid id) => Ok(playerService.GetPlayerDetailById(id));
+
+        [HttpGet("alldetails")]
+        public IActionResult GetAllDetails() => Ok(playerService.GetAllPlayerDetails());
     }
 }

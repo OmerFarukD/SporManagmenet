@@ -11,5 +11,9 @@ public interface IPlayerService
     ReturnModel<NoData> Update(PlayerUpdateRequestDto updateRequestDto);
 
     ReturnModel<NoData> Delete(Guid id);
+
+
+    ReturnModel<List<PlayerDetailResponseDto>> GetAllPlayerDetails();
+    ReturnModel<PlayerDetailResponseDto> GetPlayerDetailById(Guid id);
 }
 

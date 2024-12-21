@@ -4,6 +4,7 @@ using SporManagmenet.WebApi.Repository.Concretes;
 using SporManagmenet.WebApi.Repository.Contexts;
 using SporManagmenet.WebApi.Services.Abstracts;
 using SporManagmenet.WebApi.Services.Concretes;
+using SporManagmenet.WebApi.Services.Helpers.CloudinaryHelper;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +27,9 @@ builder.Services.AddDbContext<BaseDbContext>(opt =>
 });
 
 
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+
+
 
 // Service baðýmlýlýklarý
 builder.Services.AddScoped<ITeamService,TeamService>();
@@ -33,6 +37,7 @@ builder.Services.AddScoped<IPlayerService, PlayerService>();
 builder.Services.AddScoped<IPlayerImageService,PlayerImageService>();
 builder.Services.AddScoped<ICountryService,CountryService>();
 builder.Services.AddScoped<ICoachService,CoachService>();
+builder.Services.AddScoped<ICloudinaryService,CloudinaryService>();
 
 
 
