@@ -45,7 +45,21 @@ builder.Services.AddScoped<ICloudinaryService,CloudinaryService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ReactPolicy", builder =>
+    {
+        builder.WithOrigins("http://localhost:3000")
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
+
+
+app.UseCors("ReactPolicy");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
