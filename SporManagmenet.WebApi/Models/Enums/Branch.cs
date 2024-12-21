@@ -2,8 +2,8 @@
 
 public enum Branch
 {
-    Futbol,
-    Basketbol,
-    Kurek,
+    Futbol=1,
+    Basketbol=2,
+    Kurek=3,
 
 }

@@ -13,22 +13,17 @@ public sealed class PlayerImageService(IPlayerImageRepository _playerImageReposi
         throw new NotImplementedException();
     }
 
-    public ReturnModel<NoData> Delete(Guid id)
-    {
-        throw new NotImplementedException();
-    }
-
     public ReturnModel<List<PlayerImageResponseDto>> GetAll()
     {
         throw new NotImplementedException();
     }
 
-    public ReturnModel<PlayerImageResponseDto> GetById(Guid id)
+    public ReturnModel<List<PlayerImageResponseDto>> GetAllByPlayerId(Guid id)
     {
         throw new NotImplementedException();
     }
 
-    public ReturnModel<NoData> Update(PlayerImageUpdateRequestDto updateRequestDto)
+    public ReturnModel<PlayerImageResponseDto> GetById(Guid id)
     {
         throw new NotImplementedException();
     }

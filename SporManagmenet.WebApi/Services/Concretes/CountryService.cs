@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using SporManagmenet.WebApi.Models.Dtos.Country;
+using SporManagmenet.WebApi.Models.Entities;
 using SporManagmenet.WebApi.Repository.Abstracts;
+using SporManagmenet.WebApi.Repository.Concretes;
 using SporManagmenet.WebApi.Services.Abstracts;
 using SporManagmenet.WebApi.Utils.ReturnModels;
 
@@ -10,26 +12,69 @@ public sealed class CountryService(ICountryRepository _countryRepository,IMapper
 {
     public ReturnModel<NoData> Add(CountryAddRequestDto addRequestDto)
     {
-        throw new NotImplementedException();
+        Country country = _mapper.Map<Country>(addRequestDto);
+
+        _countryRepository.Add(country);
+
+        return new ReturnModel<NoData> { Message = "Ülke eklendi.", Success = true };
     }
 
     public ReturnModel<NoData> Delete(int id)
     {
-        throw new NotImplementedException();
+        if (!CountryIsPresent(id))
+        {
+            return new ReturnModel<NoData> { Message = "İlgili Ülke bulunamadı.",Success=false};
+        }
+
+        Country? country = _countryRepository.Get(x=>x.Id==id);
+
+        _countryRepository.Remove(country!);
+
+        return new ReturnModel<NoData> { Message = "Ülke Silindi.", Success = true };
+
     }
 
     public ReturnModel<List<CountryResponseDto>> GetAll()
     {
-        throw new NotImplementedException();
+        var countries = _countryRepository.GetAll(enableTracking:false);
+
+        var response = _mapper.Map<List<CountryResponseDto>>(countries);
+
+        return new ReturnModel<List<CountryResponseDto>> { Data = response, Success = true };
     }
 
     public ReturnModel<CountryResponseDto> GetById(int id)
     {
-        throw new NotImplementedException();
+        if (!CountryIsPresent(id))
+        {
+            return new ReturnModel<CountryResponseDto> { Message = "İlgili Ülke bulunamadı.", Success = false };
+        }
+
+        Country? country = _countryRepository.Get(x => x.Id == id);
+
+        var response = _mapper.Map<CountryResponseDto>(country);
+
+        return new ReturnModel<CountryResponseDto> { Success = true, Data = response };
     }
 
     public ReturnModel<NoData> Update(CountryUpdateRequestDto updateRequestDto)
     {
-        throw new NotImplementedException();
+        if (!CountryIsPresent(updateRequestDto.Id))
+        {
+            return new ReturnModel<NoData> { Message = "İlgili Ülke bulunamadı.", Success = false };
+        }
+
+        var country = _mapper.Map<Country>(updateRequestDto);
+
+        _countryRepository.Update(country);
+
+        return new ReturnModel<NoData> { Message = "Ülke Güncellendi.", Success = true };
+
+
+    }
+
+    private bool CountryIsPresent(int id)
+    {
+        return _countryRepository.Any(predicate: x => x.Id == id);
     }
 }

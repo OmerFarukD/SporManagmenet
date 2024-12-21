@@ -8,8 +8,7 @@ public interface IPlayerImageService
     ReturnModel<List<PlayerImageResponseDto>> GetAll();
     ReturnModel<PlayerImageResponseDto> GetById(Guid id);
     ReturnModel<NoData> Add(PlayerImageAddRequestDto addRequestDto);
-    ReturnModel<NoData> Update(PlayerImageUpdateRequestDto updateRequestDto);
 
-    ReturnModel<NoData> Delete(Guid id);
+    ReturnModel<List<PlayerImageResponseDto>> GetAllByPlayerId(Guid id);
 }
 
